@@ -6,7 +6,11 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Contact's class
+ */
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
+#[ORM\Table(name: '`contacts`')]
 #[ApiResource]
 class Contact
 {
@@ -27,16 +31,27 @@ class Contact
     #[ORM\Column(type: 'boolean')]
     private $status;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @param string $email
+     *
+     * @return $this
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -44,11 +59,19 @@ class Contact
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getSubject(): ?string
     {
         return $this->subject;
     }
 
+    /**
+     * @param string $subject
+     *
+     * @return $this
+     */
     public function setSubject(string $subject): self
     {
         $this->subject = $subject;
@@ -56,11 +79,19 @@ class Contact
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getMessage(): ?string
     {
         return $this->message;
     }
 
+    /**
+     * @param string $message
+     *
+     * @return $this
+     */
     public function setMessage(string $message): self
     {
         $this->message = $message;
@@ -68,11 +99,19 @@ class Contact
         return $this;
     }
 
+    /**
+     * @return bool|null
+     */
     public function getStatus(): ?bool
     {
         return $this->status;
     }
 
+    /**
+     * @param bool $status
+     *
+     * @return $this
+     */
     public function setStatus(bool $status): self
     {
         $this->status = $status;

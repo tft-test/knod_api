@@ -16,14 +16,22 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ImageRepository extends ServiceEntityRepository
 {
+    /**
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Image::class);
     }
 
     /**
+     * @param Image $entity
+     * @param bool  $flush
+     *
      * @throws ORMException
      * @throws OptimisticLockException
+     *
+     * @return void
      */
     public function add(Image $entity, bool $flush = true): void
     {
@@ -34,8 +42,13 @@ class ImageRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param Image $entity
+     * @param bool  $flush
+     *
      * @throws ORMException
      * @throws OptimisticLockException
+     *
+     * @return void
      */
     public function remove(Image $entity, bool $flush = true): void
     {

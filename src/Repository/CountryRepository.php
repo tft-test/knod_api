@@ -16,14 +16,22 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CountryRepository extends ServiceEntityRepository
 {
+    /**
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Country::class);
     }
 
     /**
+     * @param Country $entity
+     * @param bool    $flush
+     *
      * @throws ORMException
      * @throws OptimisticLockException
+     *
+     * @return void
      */
     public function add(Country $entity, bool $flush = true): void
     {
@@ -34,8 +42,13 @@ class CountryRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param Country $entity
+     * @param bool    $flush
+     *
      * @throws ORMException
      * @throws OptimisticLockException
+     *
+     * @return void
      */
     public function remove(Country $entity, bool $flush = true): void
     {

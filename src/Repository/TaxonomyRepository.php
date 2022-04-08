@@ -16,14 +16,19 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TaxonomyRepository extends ServiceEntityRepository
 {
+    /**
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Taxonomy::class);
     }
 
     /**
-     * @throws ORMException
-     * @throws OptimisticLockException
+     * @param Taxonomy $entity
+     * @param bool     $flush
+     *
+     * @return void
      */
     public function add(Taxonomy $entity, bool $flush = true): void
     {
@@ -34,8 +39,13 @@ class TaxonomyRepository extends ServiceEntityRepository
     }
 
     /**
-     * @throws ORMException
+     * @param Taxonomy $entity
+     * @param bool     $flush
+     *
      * @throws OptimisticLockException
+     * @throws ORMException
+     *
+     * @return void
      */
     public function remove(Taxonomy $entity, bool $flush = true): void
     {

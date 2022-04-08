@@ -6,7 +6,11 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TaxonomyRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Taxonomy
+ */
 #[ORM\Entity(repositoryClass: TaxonomyRepository::class)]
+#[ORM\Table(name: '`taxonomies`')]
 #[ApiResource]
 class Taxonomy
 {
@@ -18,16 +22,27 @@ class Taxonomy
     #[ORM\Column(type: 'string', length: 150)]
     private $name;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     *
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;

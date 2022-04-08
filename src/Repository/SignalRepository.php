@@ -16,14 +16,22 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SignalRepository extends ServiceEntityRepository
 {
+    /**
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Signal::class);
     }
 
     /**
+     * @param Signal $entity
+     * @param bool   $flush
+
      * @throws ORMException
      * @throws OptimisticLockException
+     *
+     * @return void
      */
     public function add(Signal $entity, bool $flush = true): void
     {
@@ -34,8 +42,13 @@ class SignalRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param Signal $entity
+     * @param bool   $flush
+     *
      * @throws ORMException
      * @throws OptimisticLockException
+     *
+     * @return void
      */
     public function remove(Signal $entity, bool $flush = true): void
     {

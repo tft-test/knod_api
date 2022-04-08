@@ -16,14 +16,22 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ContactRepository extends ServiceEntityRepository
 {
+    /**
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Contact::class);
     }
 
     /**
+     * @param Contact $entity
+     * @param bool    $flush
+     *
      * @throws ORMException
      * @throws OptimisticLockException
+     *
+     * @return void
      */
     public function add(Contact $entity, bool $flush = true): void
     {
@@ -34,8 +42,13 @@ class ContactRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param Contact $entity
+     * @param bool    $flush
+     *
      * @throws ORMException
      * @throws OptimisticLockException
+     *
+     * @return void
      */
     public function remove(Contact $entity, bool $flush = true): void
     {

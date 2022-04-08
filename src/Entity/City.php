@@ -6,7 +6,11 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CityRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * City
+ */
 #[ORM\Entity(repositoryClass: CityRepository::class)]
+#[ORM\Table(name: '`cities`')]
 #[ApiResource]
 class City
 {
@@ -21,16 +25,27 @@ class City
     #[ORM\Column(type: 'integer')]
     private $zipcode;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     *
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -38,11 +53,19 @@ class City
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getZipcode(): ?int
     {
         return $this->zipcode;
     }
 
+    /**
+     * @param int $zipcode
+     *
+     * @return $this
+     */
     public function setZipcode(int $zipcode): self
     {
         $this->zipcode = $zipcode;

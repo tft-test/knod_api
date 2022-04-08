@@ -16,14 +16,22 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class AdvertCategoryRepository extends ServiceEntityRepository
 {
+    /**
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, AdvertCategory::class);
     }
 
     /**
+     * @param AdvertCategory $entity
+     * @param bool           $flush
+     *
      * @throws ORMException
      * @throws OptimisticLockException
+     *
+     * @return void
      */
     public function add(AdvertCategory $entity, bool $flush = true): void
     {
@@ -34,8 +42,13 @@ class AdvertCategoryRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param AdvertCategory $entity
+     * @param bool           $flush
+     *
      * @throws ORMException
      * @throws OptimisticLockException
+     *
+     * @return void
      */
     public function remove(AdvertCategory $entity, bool $flush = true): void
     {
