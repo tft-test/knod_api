@@ -2,14 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e2b953a2-e47f-4557-9d3f-51a211315bcb" name="Changes" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> feature/entities
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+=======
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+>>>>>>> feature/entities
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -160,17 +169,28 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+<<<<<<< HEAD
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+=======
+    <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+>>>>>>> feature/entities
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
+<<<<<<< HEAD
     <configuration default="true" type="ComposerRunConfigurationType" factoryName="Composer Script">
       <option name="pathToComposerJson" value="$PROJECT_DIR$/composer.json" />
       <method v="2" />
     </configuration>
+=======
+>>>>>>> feature/entities
     <configuration name="phpunit.xml.dist" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
@@ -184,7 +204,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1649425668671</updated>
+<<<<<<< HEAD
       <workItem from="1649425669967" duration="814000" />
+=======
+      <workItem from="1649425669967" duration="447000" />
+      <workItem from="1649446646535" duration="3622000" />
+>>>>>>> feature/entities
     </task>
     <servers />
   </component>
