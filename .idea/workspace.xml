@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e2b953a2-e47f-4557-9d3f-51a211315bcb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Entity/Address.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/AddressRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -164,6 +161,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -186,7 +184,7 @@
       <option name="presentableId" value="Default" />
       <updated>1649425668671</updated>
       <workItem from="1649425669967" duration="447000" />
-      <workItem from="1649446646535" duration="2647000" />
+      <workItem from="1649446646535" duration="3318000" />
     </task>
     <servers />
   </component>
