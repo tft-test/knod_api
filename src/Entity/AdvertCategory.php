@@ -3,24 +3,24 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\DocumentTypeRepository;
+use App\Repository\AdvertCategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Type of User's document
+ * Advert's category
  */
-#[ORM\Entity(repositoryClass: DocumentTypeRepository::class)]
-#[ORM\Table(name: '`document_types`')]
+#[ORM\Entity(repositoryClass: AdvertCategoryRepository::class)]
+#[ORM\Table(name: '`advert_categories`')]
 #[ApiResource]
-class DocumentType
+class AdvertCategory
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $type;
+    #[ORM\Column(type: 'string', length: 150)]
+    private $category;
 
     /**
      * @return int|null
@@ -33,19 +33,19 @@ class DocumentType
     /**
      * @return string|null
      */
-    public function getType(): ?string
+    public function getCategory(): ?string
     {
-        return $this->type;
+        return $this->category;
     }
 
     /**
-     * @param string $type
+     * @param string $category
      *
      * @return $this
      */
-    public function setType(string $type): self
+    public function setCategory(string $category): self
     {
-        $this->type = $type;
+        $this->category = $category;
 
         return $this;
     }

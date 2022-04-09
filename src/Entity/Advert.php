@@ -1,26 +1,30 @@
-<?php
+<?php /* @noinspection PhpPropertyOnlyWrittenInspection */
 
+/*
+ * This file describes to the Advert resource
+ */
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\DocumentTypeRepository;
+use App\Repository\AdvertRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Type of User's document
+ * @access public
+ *
+ * @version 0.1
  */
-#[ORM\Entity(repositoryClass: DocumentTypeRepository::class)]
-#[ORM\Table(name: '`document_types`')]
+#[ORM\Entity(repositoryClass: AdvertRepository::class)]
 #[ApiResource]
-class DocumentType
+class Advert
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $type;
+    private ?string $title;
 
     /**
      * @return int|null
@@ -33,19 +37,19 @@ class DocumentType
     /**
      * @return string|null
      */
-    public function getType(): ?string
+    public function getTitle(): ?string
     {
-        return $this->type;
+        return $this->title;
     }
 
     /**
-     * @param string $type
+     * @param string $title
      *
      * @return $this
      */
-    public function setType(string $type): self
+    public function setTitle(string $title): self
     {
-        $this->type = $type;
+        $this->title = $title;
 
         return $this;
     }

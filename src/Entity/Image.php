@@ -3,16 +3,16 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\CityRepository;
+use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * City
+ * Images
  */
-#[ORM\Entity(repositoryClass: CityRepository::class)]
-#[ORM\Table(name: '`cities`')]
+#[ORM\Entity(repositoryClass: ImageRepository::class)]
+#[ORM\Table(name: '`images`')]
 #[ApiResource]
-class City
+class Image
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -20,10 +20,10 @@ class City
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private $filename;
 
-    #[ORM\Column(type: 'integer')]
-    private $zipcode;
+    #[ORM\Column(type: 'string', length: 255)]
+    private $mime;
 
     /**
      * @return int|null
@@ -36,39 +36,39 @@ class City
     /**
      * @return string|null
      */
-    public function getName(): ?string
+    public function getFilename(): ?string
     {
-        return $this->name;
+        return $this->filename;
     }
 
     /**
-     * @param string $name
+     * @param string $filename
      *
      * @return $this
      */
-    public function setName(string $name): self
+    public function setFilename(string $filename): self
     {
-        $this->name = $name;
+        $this->filename = $filename;
 
         return $this;
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getZipcode(): ?int
+    public function getMime(): ?string
     {
-        return $this->zipcode;
+        return $this->mime;
     }
 
     /**
-     * @param int $zipcode
+     * @param string $mime
      *
      * @return $this
      */
-    public function setZipcode(int $zipcode): self
+    public function setMime(string $mime): self
     {
-        $this->zipcode = $zipcode;
+        $this->mime = $mime;
 
         return $this;
     }

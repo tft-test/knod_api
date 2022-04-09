@@ -1,26 +1,30 @@
-<?php
+<?php /* @noinspection PhpPropertyOnlyWrittenInspection */
 
+/*
+ * This file describes the AdvertType resource.
+ */
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\DocumentTypeRepository;
+use App\Repository\AdvertTypeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Type of User's document
+ * @access public
+ *
+ * @version 0.1
  */
-#[ORM\Entity(repositoryClass: DocumentTypeRepository::class)]
-#[ORM\Table(name: '`document_types`')]
+#[ORM\Entity(repositoryClass: AdvertTypeRepository::class)]
 #[ApiResource]
-class DocumentType
+class AdvertType
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $type;
+    private ?string $type;
 
     /**
      * @return int|null

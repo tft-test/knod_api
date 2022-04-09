@@ -1,29 +1,33 @@
-<?php
+<?php /* @noinspection PhpPropertyOnlyWrittenInspection */
 
+/*
+ * This file describes the company resources.
+ */
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\CityRepository;
+use App\Repository\CompanyRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * City
+ * @access public
+ *
+ * @version 0.1
  */
-#[ORM\Entity(repositoryClass: CityRepository::class)]
-#[ORM\Table(name: '`cities`')]
+#[ORM\Entity(repositoryClass: CompanyRepository::class)]
 #[ApiResource]
-class City
+class Company
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private ?string $name;
 
-    #[ORM\Column(type: 'integer')]
-    private $zipcode;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $siret;
 
     /**
      * @return int|null
@@ -54,21 +58,21 @@ class City
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getZipcode(): ?int
+    public function getSiret(): ?string
     {
-        return $this->zipcode;
+        return $this->siret;
     }
 
     /**
-     * @param int $zipcode
+     * @param string $siret
      *
      * @return $this
      */
-    public function setZipcode(int $zipcode): self
+    public function setSiret(string $siret): self
     {
-        $this->zipcode = $zipcode;
+        $this->siret = $siret;
 
         return $this;
     }

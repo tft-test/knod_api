@@ -2,35 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\Address;
+use App\Entity\AdvertType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Address|null find($id, $lockMode = null, $lockVersion = null)
- * @method Address|null findOneBy(array $criteria, array $orderBy = null)
- * @method Address[]    findAll()
- * @method Address[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method AdvertType|null find($id, $lockMode = null, $lockVersion = null)
+ * @method AdvertType|null findOneBy(array $criteria, array $orderBy = null)
+ * @method AdvertType[]    findAll()
+ * @method AdvertType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AddressRepository extends ServiceEntityRepository
+class AdvertTypeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Address::class);
+        parent::__construct($registry, AdvertType::class);
     }
 
     /**
-     * @param Address $entity
-     * @param bool    $flush
-     *
      * @throws ORMException
      * @throws OptimisticLockException
-     *
-     * @return void
      */
-    public function add(Address $entity, bool $flush = true): void
+    public function add(AdvertType $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -39,15 +34,10 @@ class AddressRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param Address $entity
-     * @param bool    $flush
-     *
      * @throws ORMException
      * @throws OptimisticLockException
-     *
-     * @return void
      */
-    public function remove(Address $entity, bool $flush = true): void
+    public function remove(AdvertType $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -56,7 +46,7 @@ class AddressRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Address[] Returns an array of Address objects
+    //  * @return AdvertType[] Returns an array of AdvertType objects
     //  */
     /*
     public function findByExampleField($value)
@@ -73,7 +63,7 @@ class AddressRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Address
+    public function findOneBySomeField($value): ?AdvertType
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.exampleField = :val')

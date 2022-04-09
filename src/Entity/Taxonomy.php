@@ -3,24 +3,24 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\DocumentTypeRepository;
+use App\Repository\TaxonomyRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Type of User's document
+ * Taxonomy
  */
-#[ORM\Entity(repositoryClass: DocumentTypeRepository::class)]
-#[ORM\Table(name: '`document_types`')]
+#[ORM\Entity(repositoryClass: TaxonomyRepository::class)]
+#[ORM\Table(name: '`taxonomies`')]
 #[ApiResource]
-class DocumentType
+class Taxonomy
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $type;
+    #[ORM\Column(type: 'string', length: 150)]
+    private $name;
 
     /**
      * @return int|null
@@ -33,19 +33,19 @@ class DocumentType
     /**
      * @return string|null
      */
-    public function getType(): ?string
+    public function getName(): ?string
     {
-        return $this->type;
+        return $this->name;
     }
 
     /**
-     * @param string $type
+     * @param string $name
      *
      * @return $this
      */
-    public function setType(string $type): self
+    public function setName(string $name): self
     {
-        $this->type = $type;
+        $this->name = $name;
 
         return $this;
     }

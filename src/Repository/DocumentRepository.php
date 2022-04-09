@@ -2,38 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\DocumentType;
+use App\Entity\Document;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method DocumentType|null find($id, $lockMode = null, $lockVersion = null)
- * @method DocumentType|null findOneBy(array $criteria, array $orderBy = null)
- * @method DocumentType[]    findAll()
- * @method DocumentType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Document|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Document|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Document[]    findAll()
+ * @method Document[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DocumentTypeRepository extends ServiceEntityRepository
+class DocumentRepository extends ServiceEntityRepository
 {
-    /**
-     * @param ManagerRegistry $registry
-     */
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, DocumentType::class);
+        parent::__construct($registry, Document::class);
     }
 
     /**
-     * @param DocumentType $entity
-     * @param bool         $flush
-     *
      * @throws ORMException
      * @throws OptimisticLockException
-     *
-     * @return void
      */
-    public function add(DocumentType $entity, bool $flush = true): void
+    public function add(Document $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -42,15 +34,10 @@ class DocumentTypeRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param DocumentType $entity
-     * @param bool         $flush
-     *
      * @throws ORMException
      * @throws OptimisticLockException
-     *
-     * @return void
      */
-    public function remove(DocumentType $entity, bool $flush = true): void
+    public function remove(Document $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -59,7 +46,7 @@ class DocumentTypeRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return DocumentType[] Returns an array of DocumentType objects
+    //  * @return Document[] Returns an array of Document objects
     //  */
     /*
     public function findByExampleField($value)
@@ -76,7 +63,7 @@ class DocumentTypeRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?DocumentType
+    public function findOneBySomeField($value): ?Document
     {
         return $this->createQueryBuilder('d')
             ->andWhere('d.exampleField = :val')

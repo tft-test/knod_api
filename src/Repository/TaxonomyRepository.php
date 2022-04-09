@@ -2,38 +2,35 @@
 
 namespace App\Repository;
 
-use App\Entity\City;
+use App\Entity\Taxonomy;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method City|null find($id, $lockMode = null, $lockVersion = null)
- * @method City|null findOneBy(array $criteria, array $orderBy = null)
- * @method City[]    findAll()
- * @method City[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Taxonomy|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Taxonomy|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Taxonomy[]    findAll()
+ * @method Taxonomy[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CityRepository extends ServiceEntityRepository
+class TaxonomyRepository extends ServiceEntityRepository
 {
     /**
      * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, City::class);
+        parent::__construct($registry, Taxonomy::class);
     }
 
     /**
-     * @param City $entity
-     * @param bool $flush
-     *
-     * @throws ORMException
-     * @throws OptimisticLockException
+     * @param Taxonomy $entity
+     * @param bool     $flush
      *
      * @return void
      */
-    public function add(City $entity, bool $flush = true): void
+    public function add(Taxonomy $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -42,15 +39,15 @@ class CityRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param City $entity
-     * @param bool $flush
+     * @param Taxonomy $entity
+     * @param bool     $flush
      *
-     * @throws ORMException
      * @throws OptimisticLockException
+     * @throws ORMException
      *
      * @return void
      */
-    public function remove(City $entity, bool $flush = true): void
+    public function remove(Taxonomy $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -59,15 +56,15 @@ class CityRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return City[] Returns an array of City objects
+    //  * @return Taxonomy[] Returns an array of Taxonomy objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
+            ->orderBy('t.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -76,10 +73,10 @@ class CityRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?City
+    public function findOneBySomeField($value): ?Taxonomy
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

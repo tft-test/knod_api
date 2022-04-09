@@ -2,38 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\Contact;
+use App\Entity\Comment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Contact|null find($id, $lockMode = null, $lockVersion = null)
- * @method Contact|null findOneBy(array $criteria, array $orderBy = null)
- * @method Contact[]    findAll()
- * @method Contact[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Comment|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Comment|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Comment[]    findAll()
+ * @method Comment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ContactRepository extends ServiceEntityRepository
+class CommentRepository extends ServiceEntityRepository
 {
-    /**
-     * @param ManagerRegistry $registry
-     */
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Contact::class);
+        parent::__construct($registry, Comment::class);
     }
 
     /**
-     * @param Contact $entity
-     * @param bool    $flush
-     *
      * @throws ORMException
      * @throws OptimisticLockException
-     *
-     * @return void
      */
-    public function add(Contact $entity, bool $flush = true): void
+    public function add(Comment $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -42,15 +34,10 @@ class ContactRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param Contact $entity
-     * @param bool    $flush
-     *
      * @throws ORMException
      * @throws OptimisticLockException
-     *
-     * @return void
      */
-    public function remove(Contact $entity, bool $flush = true): void
+    public function remove(Comment $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -59,7 +46,7 @@ class ContactRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Contact[] Returns an array of Contact objects
+    //  * @return Comment[] Returns an array of Comment objects
     //  */
     /*
     public function findByExampleField($value)
@@ -76,7 +63,7 @@ class ContactRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Contact
+    public function findOneBySomeField($value): ?Comment
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')
