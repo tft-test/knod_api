@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @version 0.1
  */
 #[ORM\Entity(repositoryClass: AdvertTypeRepository::class)]
+#[ORM\Table(name: '`advert_types`')]
 #[ApiResource]
 class AdvertType
 {

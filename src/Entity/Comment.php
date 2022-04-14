@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @version 0.1
  */
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
+#[ORM\Table(name: '`comments`')]
 #[ApiResource]
 class Comment
 {
@@ -25,6 +26,9 @@ class Comment
 
     #[ORM\Column(type: 'text')]
     private ?string $comment;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'comments')]
+    private $author;
 
     /**
      * @return int|null
@@ -50,6 +54,18 @@ class Comment
     public function setComment(string $comment): self
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

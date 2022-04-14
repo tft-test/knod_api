@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @version 0.1
  */
 #[ORM\Entity(repositoryClass: CompanyCategoryRepository::class)]
+#[ORM\Table(name: '`company_categories`')]
 #[ApiResource]
 class CompanyCategory
 {

@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @version 0.1
  */
 #[ORM\Entity(repositoryClass: EventCategoryRepository::class)]
+#[ORM\Table(name: '`event_categories`')]
 #[ApiResource]
 class EventCategory
 {

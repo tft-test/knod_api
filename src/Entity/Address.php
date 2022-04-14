@@ -3,13 +3,15 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AddressRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Address
  */
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
-#[ORM\Table(name: '`cities`')]
+#[ORM\Table(name: '`addresses`')]
 #[ApiResource]
 class Address
 {
@@ -23,6 +25,17 @@ class Address
 
     #[ORM\Column(type: 'string', length: 255)]
     private $street;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'addresses')]
+    private $user;
+
+    #[ORM\OneToMany(mappedBy: 'address', targetEntity: Event::class)]
+    private $events;
+
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -68,6 +81,48 @@ class Address
     public function setStreet(string $street): self
     {
         $this->street = $street;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setAddress($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getAddress() === $this) {
+                $event->setAddress(null);
+            }
+        }
 
         return $this;
     }

@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @version 0.1
  */
 #[ORM\Entity(repositoryClass: FaqRepository::class)]
+#[ORM\Table(name: '`faqs`')]
 #[ApiResource]
 class Faq
 {
@@ -31,6 +32,9 @@ class Faq
 
     #[ORM\Column(type: 'boolean')]
     private ?bool $status;
+
+    #[ORM\ManyToOne(targetEntity: Admin::class, inversedBy: 'faqs')]
+    private $author;
 
     /**
      * @return int|null
@@ -96,6 +100,18 @@ class Faq
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Admin
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Admin $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }
