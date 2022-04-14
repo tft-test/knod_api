@@ -27,11 +27,12 @@ class Company
     private ?int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $name;
+    private ?string $name = '';
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $siret;
+    private ?string $siret = '';
 
+    // TODO - to change this attribute
     #[ORM\ManyToOne(targetEntity: Admin::class, inversedBy: 'companies')]
     private $author;
 
@@ -130,7 +131,7 @@ class Company
     {
         if (!$this->addresses->contains($address)) {
             $this->addresses[] = $address;
-            $address->setCompanies($this);
+            $address->setCompany($this);
         }
 
         return $this;
@@ -140,8 +141,8 @@ class Company
     {
         if ($this->addresses->removeElement($address)) {
             // set the owning side to null (unless already changed)
-            if ($address->getCompanies() === $this) {
-                $address->setCompanies(null);
+            if ($address->getCompany() === $this) {
+                $address->setCompany(null);
             }
         }
 

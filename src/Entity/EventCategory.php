@@ -27,7 +27,7 @@ class EventCategory
     private ?int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $category;
+    private ?string $category = '';
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Event::class)]
     private $events;

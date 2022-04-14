@@ -30,28 +30,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    private ?string $email;
+    private ?string $email = '';
 
     #[ORM\Column(type: 'json')]
     private ?array $roles = [];
 
     #[ORM\Column(type: 'string')]
-    private ?string $password;
+    private ?string $password = '';
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $firstname;
+    private ?string $firstname = '';
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $lastname;
+    private ?string $lastname = '';
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $username;
+    private ?string $username = '';
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $phoneNumber;
+    private ?string $phoneNumber = '';
 
     #[ORM\Column(type: 'text')]
-    private ?string $description;
+    private ?string $description = '';
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Notification::class, orphanRemoval: true)]
     private $notifications;

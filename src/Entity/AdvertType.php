@@ -27,7 +27,7 @@ class AdvertType
     private ?int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $type;
+    private ?string $type = '';
 
     #[ORM\OneToMany(mappedBy: 'type', targetEntity: Advert::class, orphanRemoval: true)]
     private $adverts;

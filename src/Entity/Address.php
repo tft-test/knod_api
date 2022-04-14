@@ -33,7 +33,7 @@ class Address
     private $events;
 
     #[ORM\ManyToOne(targetEntity: Company::class, inversedBy: 'addresses')]
-    private $companies;
+    private $company;
 
     #[ORM\ManyToOne(targetEntity: City::class, inversedBy: 'addresses')]
     #[ORM\JoinColumn(nullable: false)]
@@ -134,14 +134,14 @@ class Address
         return $this;
     }
 
-    public function getCompanies(): ?Company
+    public function getCompany(): ?Company
     {
-        return $this->companies;
+        return $this->company;
     }
 
-    public function setCompanies(?Company $companies): self
+    public function setCompany(?Company $company): self
     {
-        $this->companies = $companies;
+        $this->company = $company;
 
         return $this;
     }

@@ -25,19 +25,21 @@ class Event
     private ?int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $title;
+    private ?string $title = '';
 
     #[ORM\Column(type: 'text')]
-    private ?string $description;
+    private ?string $description = '';
 
+    // TODO - Have to make Relationship ManyToMany for Like on Dislike Event
     #[ORM\Column(type: 'integer')]
-    private ?int $nbOfLike;
+    private ?int $nbOfLike = 0;
 
     #[ORM\Column(type: 'integer')]
     private ?int $nbOfDeslike;
+    // ----------------------------------------------------------------------
 
     #[ORM\Column(type: 'integer')]
-    private ?int $nbPlace;
+    private ?int $nbPlace = 0;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'events')]
     private $author;

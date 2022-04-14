@@ -24,6 +24,8 @@ class Notification
     #[ORM\Column(type: 'integer')]
     private ?int $id;
 
+    // TODO - is missing fields
+
     #[ORM\ManyToOne(targetEntity: NotificationType::class, inversedBy: 'notifications')]
     private $type;
 
