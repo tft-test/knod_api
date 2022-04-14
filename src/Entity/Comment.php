@@ -25,10 +25,10 @@ class Comment
     private ?int $id;
 
     #[ORM\Column(type: 'text')]
-    private ?string $comment;
+    private ?string $comment = '';
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'comments')]
-    private $author;
+    private $author; // Who commented
 
     /**
      * @return int|null

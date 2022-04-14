@@ -29,6 +29,9 @@ class NotificationType
     #[ORM\OneToMany(mappedBy: 'type', targetEntity: Notification::class)]
     private $notifications;
 
+    #[ORM\ManyToOne(targetEntity: Admin::class, inversedBy: 'notificationTypes')]
+    private $author;
+
     public function __construct()
     {
         $this->notifications = new ArrayCollection();
@@ -68,6 +71,18 @@ class NotificationType
                 $notification->setType(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Admin
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Admin $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

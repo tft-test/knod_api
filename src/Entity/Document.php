@@ -28,16 +28,16 @@ class Document
     private ?int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $filename;
+    private ?string $filename = '';
 
     #[ORM\OneToOne(inversedBy: 'document', targetEntity: User::class, cascade: ['persist', 'remove'])]
-    private $user;
+    private ?User $user = null;
 
     #[ORM\ManyToOne(targetEntity: DocumentType::class, inversedBy: 'documents')]
-    private $type;
+    private ?DocumentType $type = null;
 
     #[ORM\ManyToOne(targetEntity: Admin::class, inversedBy: 'documents')]
-    private $author;
+    private ?Admin $validator = null;
 
     /**
      * @return int|null
@@ -67,11 +67,19 @@ class Document
         return $this;
     }
 
+    /**
+     * @return User|null
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * @param User|null $user
+     *
+     * @return $this
+     */
     public function setUser(?User $user): self
     {
         $this->user = $user;
@@ -79,11 +87,19 @@ class Document
         return $this;
     }
 
+    /**
+     * @return DocumentType|null
+     */
     public function getType(): ?DocumentType
     {
         return $this->type;
     }
 
+    /**
+     * @param DocumentType|null $type
+     *
+     * @return $this
+     */
     public function setType(?DocumentType $type): self
     {
         $this->type = $type;
@@ -91,14 +107,22 @@ class Document
         return $this;
     }
 
-    public function getAuthor(): ?Admin
+    /**
+     * @return Admin|null
+     */
+    public function getValidator(): ? Admin
     {
-        return $this->author;
+        return $this->validator;
     }
 
-    public function setAuthor(?Admin $author): self
+    /**
+     * @param Admin|null $validator
+     *
+     * @return $this
+     */
+    public function setValidator(?Admin $validator): self
     {
-        $this->author = $author;
+        $this->validator = $validator;
 
         return $this;
     }

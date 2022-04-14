@@ -57,6 +57,9 @@ class Admin
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Country::class)]
     private $countries;
 
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: NotificationType::class)]
+    private $notificationTypes;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
@@ -70,6 +73,7 @@ class Admin
         $this->advertTypes = new ArrayCollection();
         $this->cities = new ArrayCollection();
         $this->countries = new ArrayCollection();
+        $this->notificationTypes = new ArrayCollection();
     }
 
     /**
@@ -92,7 +96,7 @@ class Admin
     {
         if (!$this->documents->contains($document)) {
             $this->documents[] = $document;
-            $document->setAuthor($this);
+            $document->setValidator($this);
         }
 
         return $this;
@@ -102,8 +106,8 @@ class Admin
     {
         if ($this->documents->removeElement($document)) {
             // set the owning side to null (unless already changed)
-            if ($document->getAuthor() === $this) {
-                $document->setAuthor(null);
+            if ($document->getValidator() === $this) {
+                $document->setValidator(null);
             }
         }
 
@@ -404,6 +408,36 @@ class Admin
             // set the owning side to null (unless already changed)
             if ($country->getAuthor() === $this) {
                 $country->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, NotificationType>
+     */
+    public function getNotificationTypes(): Collection
+    {
+        return $this->notificationTypes;
+    }
+
+    public function addNotificationType(NotificationType $notificationType): self
+    {
+        if (!$this->notificationTypes->contains($notificationType)) {
+            $this->notificationTypes[] = $notificationType;
+            $notificationType->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotificationType(NotificationType $notificationType): self
+    {
+        if ($this->notificationTypes->removeElement($notificationType)) {
+            // set the owning side to null (unless already changed)
+            if ($notificationType->getAuthor() === $this) {
+                $notificationType->setAuthor(null);
             }
         }
 

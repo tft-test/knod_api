@@ -25,7 +25,7 @@ class Advert
     private ?int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $title;
+    private ?string $title = '';
 
     #[ORM\ManyToOne(targetEntity: Admin::class, inversedBy: 'adverts')]
     private $author;

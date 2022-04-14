@@ -27,7 +27,7 @@ class CompanyCategory
     private ?int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $category;
+    private ?string $category = '';
 
     #[ORM\ManyToOne(targetEntity: Admin::class, inversedBy: 'companyCategories')]
     private $author;
