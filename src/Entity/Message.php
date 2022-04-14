@@ -28,6 +28,9 @@ class Message
     #[ORM\Column(type: 'text')]
     private $message;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'messages')]
+    private $sender;
+
     /**
      * @return int|null
      */
@@ -92,6 +95,18 @@ class Message
     public function setMessage(string $message): self
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getSender(): ?User
+    {
+        return $this->sender;
+    }
+
+    public function setSender(?User $sender): self
+    {
+        $this->sender = $sender;
 
         return $this;
     }

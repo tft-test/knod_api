@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @version 0.1
  */
 #[ORM\Entity(repositoryClass: EventRepository::class)]
+#[ORM\Table(name: '`events`')]
 #[ApiResource]
 class Event
 {
@@ -37,6 +38,15 @@ class Event
 
     #[ORM\Column(type: 'integer')]
     private ?int $nbPlace;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'events')]
+    private $author;
+
+    #[ORM\ManyToOne(targetEntity: Address::class, inversedBy: 'events')]
+    private $address;
+
+    #[ORM\ManyToOne(targetEntity: EventCategory::class, inversedBy: 'events')]
+    private $category;
 
     /**
      * @return int|null
@@ -142,6 +152,42 @@ class Event
     public function setNbPlace(int $nbPlace): self
     {
         $this->nbPlace = $nbPlace;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getAddress(): ?Address
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?Address $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getCategory(): ?EventCategory
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?EventCategory $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

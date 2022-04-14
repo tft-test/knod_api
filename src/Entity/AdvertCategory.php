@@ -22,6 +22,9 @@ class AdvertCategory
     #[ORM\Column(type: 'string', length: 150)]
     private $category;
 
+    #[ORM\ManyToOne(targetEntity: Admin::class, inversedBy: 'advertCategories')]
+    private $author;
+
     /**
      * @return int|null
      */
@@ -46,6 +49,18 @@ class AdvertCategory
     public function setCategory(string $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Admin
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Admin $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }
