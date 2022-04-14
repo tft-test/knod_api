@@ -35,6 +35,10 @@ class Address
     #[ORM\ManyToOne(targetEntity: Company::class, inversedBy: 'addresses')]
     private $companies;
 
+    #[ORM\ManyToOne(targetEntity: City::class, inversedBy: 'addresses')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $city;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
@@ -138,6 +142,18 @@ class Address
     public function setCompanies(?Company $companies): self
     {
         $this->companies = $companies;
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }

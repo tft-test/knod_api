@@ -51,6 +51,12 @@ class Admin
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: AdvertType::class)]
     private $advertTypes;
 
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: City::class)]
+    private $cities;
+
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Country::class)]
+    private $countries;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
@@ -62,6 +68,8 @@ class Admin
         $this->adverts = new ArrayCollection();
         $this->advertCategories = new ArrayCollection();
         $this->advertTypes = new ArrayCollection();
+        $this->cities = new ArrayCollection();
+        $this->countries = new ArrayCollection();
     }
 
     /**
@@ -336,6 +344,66 @@ class Admin
             // set the owning side to null (unless already changed)
             if ($advertType->getAuthor() === $this) {
                 $advertType->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, City>
+     */
+    public function getCities(): Collection
+    {
+        return $this->cities;
+    }
+
+    public function addCity(City $city): self
+    {
+        if (!$this->cities->contains($city)) {
+            $this->cities[] = $city;
+            $city->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCity(City $city): self
+    {
+        if ($this->cities->removeElement($city)) {
+            // set the owning side to null (unless already changed)
+            if ($city->getAuthor() === $this) {
+                $city->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Country>
+     */
+    public function getCountries(): Collection
+    {
+        return $this->countries;
+    }
+
+    public function addCountry(Country $country): self
+    {
+        if (!$this->countries->contains($country)) {
+            $this->countries[] = $country;
+            $country->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCountry(Country $country): self
+    {
+        if ($this->countries->removeElement($country)) {
+            // set the owning side to null (unless already changed)
+            if ($country->getAuthor() === $this) {
+                $country->setAuthor(null);
             }
         }
 
