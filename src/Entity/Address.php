@@ -32,6 +32,9 @@ class Address
     #[ORM\OneToMany(mappedBy: 'address', targetEntity: Event::class)]
     private $events;
 
+    #[ORM\ManyToOne(targetEntity: Company::class, inversedBy: 'addresses')]
+    private $companies;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
@@ -123,6 +126,18 @@ class Address
                 $event->setAddress(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCompanies(): ?Company
+    {
+        return $this->companies;
+    }
+
+    public function setCompanies(?Company $companies): self
+    {
+        $this->companies = $companies;
 
         return $this;
     }

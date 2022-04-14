@@ -45,6 +45,9 @@ class Event
     #[ORM\ManyToOne(targetEntity: Address::class, inversedBy: 'events')]
     private $address;
 
+    #[ORM\ManyToOne(targetEntity: EventCategory::class, inversedBy: 'events')]
+    private $category;
+
     /**
      * @return int|null
      */
@@ -173,6 +176,18 @@ class Event
     public function setAddress(?Address $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    public function getCategory(): ?EventCategory
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?EventCategory $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

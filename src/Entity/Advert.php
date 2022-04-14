@@ -27,6 +27,13 @@ class Advert
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $title;
 
+    #[ORM\ManyToOne(targetEntity: Admin::class, inversedBy: 'adverts')]
+    private $author;
+
+    #[ORM\ManyToOne(targetEntity: AdvertType::class, inversedBy: 'adverts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $type;
+
     /**
      * @return int|null
      */
@@ -51,6 +58,30 @@ class Advert
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Admin
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Admin $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getType(): ?AdvertType
+    {
+        return $this->type;
+    }
+
+    public function setType(?AdvertType $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
