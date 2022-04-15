@@ -31,6 +31,9 @@ class Contact
     #[ORM\Column(type: 'boolean')]
     private $status;
 
+    #[ORM\ManyToOne(targetEntity: Admin::class, inversedBy: 'contacts')]
+    private $supportBy;
+
     /**
      * @return int|null
      */
@@ -115,6 +118,18 @@ class Contact
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getSupportBy(): ?Admin
+    {
+        return $this->supportBy;
+    }
+
+    public function setSupportBy(?Admin $supportBy): self
+    {
+        $this->supportBy = $supportBy;
 
         return $this;
     }

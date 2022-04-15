@@ -8,6 +8,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -18,6 +20,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @version 0.1
  */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: '`users`')]
 #[ApiResource]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -27,28 +30,59 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    private ?string $email;
+    private ?string $email = '';
 
     #[ORM\Column(type: 'json')]
     private ?array $roles = [];
 
     #[ORM\Column(type: 'string')]
-    private ?string $password;
+    private ?string $password = '';
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $firstname;
+    private ?string $firstname = '';
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $lastname;
+    private ?string $lastname = '';
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $username;
+    private ?string $username = '';
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $phoneNumber;
+    private ?string $phoneNumber = '';
 
     #[ORM\Column(type: 'text')]
-    private ?string $description;
+    private ?string $description = '';
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Notification::class, orphanRemoval: true)]
+    private $notifications;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Signal::class, orphanRemoval: true)]
+    private $signals;
+
+    #[ORM\OneToOne(mappedBy: 'user', targetEntity: Document::class, cascade: ['persist', 'remove'])]
+    private $document;
+
+    #[ORM\OneToMany(mappedBy: 'sender', targetEntity: Message::class)]
+    private $messages;
+
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Comment::class)]
+    private $comments;
+
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Event::class)]
+    private $events;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Address::class)]
+    private $addresses;
+
+    public function __construct()
+    {
+        $this->notifications = new ArrayCollection();
+        $this->signals = new ArrayCollection();
+        $this->messages = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->events = new ArrayCollection();
+        $this->addresses = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -248,6 +282,208 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notification>
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
+    public function addNotification(Notification $notification): self
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications[] = $notification;
+            $notification->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notification $notification): self
+    {
+        if ($this->notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getUser() === $this) {
+                $notification->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Signal>
+     */
+    public function getSignals(): Collection
+    {
+        return $this->signals;
+    }
+
+    public function addSignal(Signal $signal): self
+    {
+        if (!$this->signals->contains($signal)) {
+            $this->signals[] = $signal;
+            $signal->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSignal(Signal $signal): self
+    {
+        if ($this->signals->removeElement($signal)) {
+            // set the owning side to null (unless already changed)
+            if ($signal->getUser() === $this) {
+                $signal->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDocument(): ?Document
+    {
+        return $this->document;
+    }
+
+    public function setDocument(?Document $document): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($document === null && $this->document !== null) {
+            $this->document->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($document !== null && $document->getUser() !== $this) {
+            $document->setUser($this);
+        }
+
+        $this->document = $document;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getSender() === $this) {
+                $message->setSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getAuthor() === $this) {
+                $comment->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getAuthor() === $this) {
+                $event->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Address>
+     */
+    public function getAddresses(): Collection
+    {
+        return $this->addresses;
+    }
+
+    public function addAddress(Address $address): self
+    {
+        if (!$this->addresses->contains($address)) {
+            $this->addresses[] = $address;
+            $address->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddress(Address $address): self
+    {
+        if ($this->addresses->removeElement($address)) {
+            // set the owning side to null (unless already changed)
+            if ($address->getUser() === $this) {
+                $address->setUser(null);
+            }
+        }
 
         return $this;
     }

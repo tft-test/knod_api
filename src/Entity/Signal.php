@@ -25,6 +25,10 @@ class Signal
     #[ORM\Column(type: 'string', length: 255)]
     private $reason;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'signals')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $user;
+
     /**
      * @return int|null
      */
@@ -69,6 +73,18 @@ class Signal
     public function setReason(string $reason): self
     {
         $this->reason = $reason;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
