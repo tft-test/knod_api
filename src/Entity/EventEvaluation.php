@@ -20,7 +20,7 @@ class EventEvaluation
     private $id;
 
     #[ORM\Column(type: 'integer')]
-    private int $nbStar;
+    private int $nbStar = 0;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'eventEvaluations')]
     private $user;
