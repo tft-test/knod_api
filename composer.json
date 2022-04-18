@@ -81,6 +81,8 @@
         }
     },
     "require-dev": {
+        "roave/security-advisories": "dev-latest"
+        ,
         "symfony/maker-bundle": "^1.38",
         "phpunit/phpunit": "^9.5",
         "liip/test-fixtures-bundle": "2.0.0",

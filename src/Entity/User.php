@@ -74,6 +74,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Address::class)]
     private $addresses;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: EventEvaluation::class)]
+    private $eventEvaluations;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Subscriber::class, orphanRemoval: true)]
+    private $subscribers;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: FavoriteEvent::class, orphanRemoval: true)]
+    private $favoriteEvents;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: FavoriteEventCategory::class, orphanRemoval: true)]
+    private $favoriteEventCategories;
+
     public function __construct()
     {
         $this->notifications = new ArrayCollection();
@@ -82,6 +94,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->comments = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->addresses = new ArrayCollection();
+        $this->eventEvaluations = new ArrayCollection();
+        $this->subscribers = new ArrayCollection();
+        $this->favoriteEvents = new ArrayCollection();
+        $this->favoriteEventCategories = new ArrayCollection();
     }
 
     /**
@@ -482,6 +498,126 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($address->getUser() === $this) {
                 $address->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EventEvaluation>
+     */
+    public function getEventEvaluations(): Collection
+    {
+        return $this->eventEvaluations;
+    }
+
+    public function addEventEvaluation(EventEvaluation $eventEvaluation): self
+    {
+        if (!$this->eventEvaluations->contains($eventEvaluation)) {
+            $this->eventEvaluations[] = $eventEvaluation;
+            $eventEvaluation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventEvaluation(EventEvaluation $eventEvaluation): self
+    {
+        if ($this->eventEvaluations->removeElement($eventEvaluation)) {
+            // set the owning side to null (unless already changed)
+            if ($eventEvaluation->getUser() === $this) {
+                $eventEvaluation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Subscriber>
+     */
+    public function getSubscribers(): Collection
+    {
+        return $this->subscribers;
+    }
+
+    public function addSubscriber(Subscriber $subscriber): self
+    {
+        if (!$this->subscribers->contains($subscriber)) {
+            $this->subscribers[] = $subscriber;
+            $subscriber->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscriber(Subscriber $subscriber): self
+    {
+        if ($this->subscribers->removeElement($subscriber)) {
+            // set the owning side to null (unless already changed)
+            if ($subscriber->getUser() === $this) {
+                $subscriber->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FavoriteEvent>
+     */
+    public function getFavoriteEvents(): Collection
+    {
+        return $this->favoriteEvents;
+    }
+
+    public function addFavoriteEvent(FavoriteEvent $favoriteEvent): self
+    {
+        if (!$this->favoriteEvents->contains($favoriteEvent)) {
+            $this->favoriteEvents[] = $favoriteEvent;
+            $favoriteEvent->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoriteEvent(FavoriteEvent $favoriteEvent): self
+    {
+        if ($this->favoriteEvents->removeElement($favoriteEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($favoriteEvent->getUser() === $this) {
+                $favoriteEvent->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FavoriteEventCategory>
+     */
+    public function getFavoriteEventCategories(): Collection
+    {
+        return $this->favoriteEventCategories;
+    }
+
+    public function addFavoriteEventCategory(FavoriteEventCategory $favoriteEventCategory): self
+    {
+        if (!$this->favoriteEventCategories->contains($favoriteEventCategory)) {
+            $this->favoriteEventCategories[] = $favoriteEventCategory;
+            $favoriteEventCategory->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoriteEventCategory(FavoriteEventCategory $favoriteEventCategory): self
+    {
+        if ($this->favoriteEventCategories->removeElement($favoriteEventCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($favoriteEventCategory->getUser() === $this) {
+                $favoriteEventCategory->setUser(null);
             }
         }
 
