@@ -35,9 +35,13 @@ class EventCategory
     #[ORM\ManyToOne(targetEntity: Admin::class, inversedBy: 'eventCategories')]
     private $author;
 
+    #[ORM\OneToMany(mappedBy: 'eventCategory', targetEntity: FavoriteEventCategory::class)]
+    private $favoriteEventCategories;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
+        $this->favoriteEventCategories = new ArrayCollection();
     }
 
     /**
@@ -106,6 +110,36 @@ class EventCategory
     public function setAuthor(?Admin $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FavoriteEventCategory>
+     */
+    public function getFavoriteEventCategories(): Collection
+    {
+        return $this->favoriteEventCategories;
+    }
+
+    public function addFavoriteEventCategory(FavoriteEventCategory $favoriteEventCategory): self
+    {
+        if (!$this->favoriteEventCategories->contains($favoriteEventCategory)) {
+            $this->favoriteEventCategories[] = $favoriteEventCategory;
+            $favoriteEventCategory->setEventCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoriteEventCategory(FavoriteEventCategory $favoriteEventCategory): self
+    {
+        if ($this->favoriteEventCategories->removeElement($favoriteEventCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($favoriteEventCategory->getEventCategory() === $this) {
+                $favoriteEventCategory->setEventCategory(null);
+            }
+        }
 
         return $this;
     }

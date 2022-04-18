@@ -7,6 +7,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AdvertRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,6 +35,14 @@ class Advert
     #[ORM\ManyToOne(targetEntity: AdvertType::class, inversedBy: 'adverts')]
     #[ORM\JoinColumn(nullable: false)]
     private $type;
+
+    #[ORM\OneToMany(mappedBy: 'advert', targetEntity: AdvertTaxonomy::class, orphanRemoval: true)]
+    private $advertTaxonomies;
+
+    public function __construct()
+    {
+        $this->advertTaxonomies = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -82,6 +92,36 @@ class Advert
     public function setType(?AdvertType $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AdvertTaxonomy>
+     */
+    public function getAdvertTaxonomies(): Collection
+    {
+        return $this->advertTaxonomies;
+    }
+
+    public function addAdvertTaxonomy(AdvertTaxonomy $advertTaxonomy): self
+    {
+        if (!$this->advertTaxonomies->contains($advertTaxonomy)) {
+            $this->advertTaxonomies[] = $advertTaxonomy;
+            $advertTaxonomy->setAdvert($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdvertTaxonomy(AdvertTaxonomy $advertTaxonomy): self
+    {
+        if ($this->advertTaxonomies->removeElement($advertTaxonomy)) {
+            // set the owning side to null (unless already changed)
+            if ($advertTaxonomy->getAdvert() === $this) {
+                $advertTaxonomy->setAdvert(null);
+            }
+        }
 
         return $this;
     }

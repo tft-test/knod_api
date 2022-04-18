@@ -7,6 +7,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,6 +51,26 @@ class Event
 
     #[ORM\ManyToOne(targetEntity: EventCategory::class, inversedBy: 'events')]
     private $category;
+
+    #[ORM\OneToMany(mappedBy: 'event', targetEntity: EventEvaluation::class, orphanRemoval: true)]
+    private $eventEvaluations;
+
+    #[ORM\OneToMany(mappedBy: 'event', targetEntity: Subscriber::class, orphanRemoval: true)]
+    private $subscribers;
+
+    #[ORM\OneToMany(mappedBy: 'event', targetEntity: FavoriteEvent::class, orphanRemoval: true)]
+    private $favoriteEvents;
+
+    #[ORM\OneToMany(mappedBy: 'event', targetEntity: EventTaxonomy::class, orphanRemoval: true)]
+    private $eventTaxonomies;
+
+    public function __construct()
+    {
+        $this->eventEvaluations = new ArrayCollection();
+        $this->subscribers = new ArrayCollection();
+        $this->favoriteEvents = new ArrayCollection();
+        $this->eventTaxonomies = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -190,6 +212,126 @@ class Event
     public function setCategory(?EventCategory $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EventEvaluation>
+     */
+    public function getEventEvaluations(): Collection
+    {
+        return $this->eventEvaluations;
+    }
+
+    public function addEventEvaluation(EventEvaluation $eventEvaluation): self
+    {
+        if (!$this->eventEvaluations->contains($eventEvaluation)) {
+            $this->eventEvaluations[] = $eventEvaluation;
+            $eventEvaluation->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventEvaluation(EventEvaluation $eventEvaluation): self
+    {
+        if ($this->eventEvaluations->removeElement($eventEvaluation)) {
+            // set the owning side to null (unless already changed)
+            if ($eventEvaluation->getEvent() === $this) {
+                $eventEvaluation->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Subscriber>
+     */
+    public function getSubscribers(): Collection
+    {
+        return $this->subscribers;
+    }
+
+    public function addSubscriber(Subscriber $subscriber): self
+    {
+        if (!$this->subscribers->contains($subscriber)) {
+            $this->subscribers[] = $subscriber;
+            $subscriber->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscriber(Subscriber $subscriber): self
+    {
+        if ($this->subscribers->removeElement($subscriber)) {
+            // set the owning side to null (unless already changed)
+            if ($subscriber->getEvent() === $this) {
+                $subscriber->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FavoriteEvent>
+     */
+    public function getFavoriteEvents(): Collection
+    {
+        return $this->favoriteEvents;
+    }
+
+    public function addFavoriteEvent(FavoriteEvent $favoriteEvent): self
+    {
+        if (!$this->favoriteEvents->contains($favoriteEvent)) {
+            $this->favoriteEvents[] = $favoriteEvent;
+            $favoriteEvent->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoriteEvent(FavoriteEvent $favoriteEvent): self
+    {
+        if ($this->favoriteEvents->removeElement($favoriteEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($favoriteEvent->getEvent() === $this) {
+                $favoriteEvent->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EventTaxonomy>
+     */
+    public function getEventTaxonomies(): Collection
+    {
+        return $this->eventTaxonomies;
+    }
+
+    public function addEventTaxonomy(EventTaxonomy $eventTaxonomy): self
+    {
+        if (!$this->eventTaxonomies->contains($eventTaxonomy)) {
+            $this->eventTaxonomies[] = $eventTaxonomy;
+            $eventTaxonomy->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventTaxonomy(EventTaxonomy $eventTaxonomy): self
+    {
+        if ($this->eventTaxonomies->removeElement($eventTaxonomy)) {
+            // set the owning side to null (unless already changed)
+            if ($eventTaxonomy->getEvent() === $this) {
+                $eventTaxonomy->setEvent(null);
+            }
+        }
 
         return $this;
     }
