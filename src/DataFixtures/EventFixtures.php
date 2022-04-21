@@ -5,10 +5,8 @@ namespace App\DataFixtures;
 use App\Entity\Address;
 use App\Entity\Admin;
 use App\Entity\City;
-use App\Entity\Comment;
 use App\Entity\Country;
 use App\Entity\Event;
-use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -36,11 +34,11 @@ class EventFixtures extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
-        $faker      = Factory::create('fr_FR');
-        $nb_entities= 10;
-        $nb_country = 5;
-        $nb_city    = 3;
-        $nb_address = 2;
+        $faker = Factory::create('fr_FR');
+        $nbEntities = 10;
+        $nbCountry = 5;
+        $nbCity = 3;
+        $nbAddress = 2;
 
         //Create Author of Events
         $admin = (new Admin())
@@ -54,7 +52,7 @@ class EventFixtures extends Fixture
         $manager->persist($admin);
 
         //Create Countries
-        for ($c = 0; $c < $nb_country; $c++) {
+        for ($c = 0; $c < $nbCountry; $c++) {
             $country = (new  Country())
                 ->setName($faker->country())
                 ->setIndicative($faker->countryCode())
@@ -63,7 +61,7 @@ class EventFixtures extends Fixture
             $manager->persist($country);
 
             //Create city for this Country
-            for ($cy = 0; $cy < $nb_city; $cy++) {
+            for ($cy = 0; $cy < $nbCity; $cy++) {
                 $city = (new City())
                     ->setAuthor($admin)
                     ->setZipcode($faker->numberBetween(11111, 99999))
@@ -72,7 +70,7 @@ class EventFixtures extends Fixture
                 $manager->persist($city);
 
                 // Create Address for each City
-                for ($a = 0; $a < $nb_address; $a++) {
+                for ($a = 0; $a < $nbAddress; $a++) {
                     //Create address for this City
                     $address = (new Address())
                         ->setCity($city)
@@ -87,18 +85,18 @@ class EventFixtures extends Fixture
         $manager->flush();
 
         // Prepare Stuffs for the next steps
-        $addresses= $manager->getRepository(Address::class)->findAll();
+        $addresses = $manager->getRepository(Address::class)->findAll();
 
         // Create Users0
-        for ($i = 0; $i < $nb_entities; $i++) {
+        for ($i = 0; $i < $nbEntities; $i++) {
             $event = (new Event())
                 ->setDescription($faker->sentence(6))
-                ->setNbPlace($faker->numberBetween(2,10))
+                ->setNbPlace($faker->numberBetween(2, 10))
                 ->setNbOfDeslike(0)
                 ->setNbOfLike(0)
-                ->setTitle($faker->text($faker->numberBetween(20,100)))
+                ->setTitle($faker->text($faker->numberBetween(20, 100)))
                 ->setAuthor($admin)
-                ->setAddress($addresses[$faker->numberBetween(0,$nb_address - 1)]);
+                ->setAddress($addresses[$faker->numberBetween(0, $nbAddress - 1)]);
             $manager->persist($event);
         }
         $manager->flush();
