@@ -21,6 +21,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`users`')]
+#[ORM\InheritanceType("SINGLE_TABLE")]
+#[ORM\DiscriminatorColumn(name: "discr", type: "string")]
+#[ORM\DiscriminatorMap(["users"=>"User", "admins"=>"Admin"])]
 #[ApiResource]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
