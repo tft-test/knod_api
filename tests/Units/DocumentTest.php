@@ -3,6 +3,7 @@
 namespace App\Tests\Units;
 
 use App\Entity\Admin;
+use App\Entity\Advert;
 use App\Entity\Document;
 use App\Entity\Company;
 use App\Entity\DocumentType;
@@ -40,7 +41,7 @@ class DocumentTest extends KernelTestCase
     {
         $this->assertNotInstanceOf(Company::class, $document->getUser());
         $this->assertNotInstanceOf(Company::class, $document->getType());
-        $this->assertNotInstanceOf(User::class, $document->getValidator());
+        $this->assertNotInstanceOf(Advert::class, $document->getValidator());
         $this->assertNotEquals('false', $document->getFilename());
     }
 

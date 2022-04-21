@@ -43,7 +43,7 @@ class CityTest extends KernelTestCase
         $this->assertNotEquals('answer', $city->getName());
         $this->assertNotInstanceOf(City::class, $city->getAddresses()->first());
         $this->assertNotInstanceOf(City::class, $city->getCountry());
-        $this->assertNotInstanceOf(User::class, $city->getAuthor());
+        $this->assertNotInstanceOf(City::class, $city->getAuthor());
     }
 
     /**

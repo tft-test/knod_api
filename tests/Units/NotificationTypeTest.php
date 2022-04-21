@@ -2,6 +2,7 @@
 
 namespace App\Tests\Units;
 
+use App\Entity\Address;
 use App\Entity\Admin;
 use App\Entity\Event;
 use App\Entity\Notification;
@@ -37,7 +38,7 @@ class NotificationTypeTest extends KernelTestCase
     public function testIsFalse(NotificationType $notificationType): void
     {
         $this->assertNotInstanceOf(User::class, $notificationType->getNotifications()->first());
-        $this->assertNotInstanceOf(User::class, $notificationType->getAuthor());
+        $this->assertNotInstanceOf(Address::class, $notificationType->getAuthor());
     }
 
     /**

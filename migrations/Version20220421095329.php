@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220418130307 extends AbstractMigration
+final class Version20220421095329 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,7 +21,6 @@ final class Version20220418130307 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE `addresses` (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, company_id INT DEFAULT NULL, city_id INT NOT NULL, number INT NOT NULL, street VARCHAR(255) NOT NULL, INDEX IDX_6FCA7516A76ED395 (user_id), INDEX IDX_6FCA7516979B1AD6 (company_id), INDEX IDX_6FCA75168BAC62AF (city_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE `admins` (id INT AUTO_INCREMENT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE `advert_categories` (id INT AUTO_INCREMENT NOT NULL, author_id INT DEFAULT NULL, category VARCHAR(150) NOT NULL, INDEX IDX_33DF3752F675F31B (author_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE `advert_taxonomies` (id INT AUTO_INCREMENT NOT NULL, taxonomy_id INT NOT NULL, advert_id INT NOT NULL, INDEX IDX_2A07F1C39557E6F6 (taxonomy_id), INDEX IDX_2A07F1C3D07ECCB6 (advert_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE `advert_types` (id INT AUTO_INCREMENT NOT NULL, author_id INT DEFAULT NULL, type VARCHAR(255) NOT NULL, INDEX IDX_5114945CF675F31B (author_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -48,28 +47,28 @@ final class Version20220418130307 extends AbstractMigration
         $this->addSql('CREATE TABLE `signals` (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, status INT NOT NULL, reason VARCHAR(255) NOT NULL, INDEX IDX_D6ADC50DA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE `subscribers` (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, event_id INT NOT NULL, status INT NOT NULL, INDEX IDX_2FCD16ACA76ED395 (user_id), INDEX IDX_2FCD16AC71F7E88B (event_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE `taxonomies` (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(150) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE `users` (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, phone_number VARCHAR(255) NOT NULL, description LONGTEXT NOT NULL, UNIQUE INDEX UNIQ_1483A5E9E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE `users` (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, phone_number VARCHAR(255) NOT NULL, description LONGTEXT NOT NULL, discr VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_1483A5E9E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE `addresses` ADD CONSTRAINT FK_6FCA7516A76ED395 FOREIGN KEY (user_id) REFERENCES `users` (id)');
         $this->addSql('ALTER TABLE `addresses` ADD CONSTRAINT FK_6FCA7516979B1AD6 FOREIGN KEY (company_id) REFERENCES `companies` (id)');
         $this->addSql('ALTER TABLE `addresses` ADD CONSTRAINT FK_6FCA75168BAC62AF FOREIGN KEY (city_id) REFERENCES `cities` (id)');
-        $this->addSql('ALTER TABLE `advert_categories` ADD CONSTRAINT FK_33DF3752F675F31B FOREIGN KEY (author_id) REFERENCES `admins` (id)');
+        $this->addSql('ALTER TABLE `advert_categories` ADD CONSTRAINT FK_33DF3752F675F31B FOREIGN KEY (author_id) REFERENCES `users` (id)');
         $this->addSql('ALTER TABLE `advert_taxonomies` ADD CONSTRAINT FK_2A07F1C39557E6F6 FOREIGN KEY (taxonomy_id) REFERENCES `taxonomies` (id)');
         $this->addSql('ALTER TABLE `advert_taxonomies` ADD CONSTRAINT FK_2A07F1C3D07ECCB6 FOREIGN KEY (advert_id) REFERENCES `adverts` (id)');
-        $this->addSql('ALTER TABLE `advert_types` ADD CONSTRAINT FK_5114945CF675F31B FOREIGN KEY (author_id) REFERENCES `admins` (id)');
-        $this->addSql('ALTER TABLE `adverts` ADD CONSTRAINT FK_8C88E777F675F31B FOREIGN KEY (author_id) REFERENCES `admins` (id)');
+        $this->addSql('ALTER TABLE `advert_types` ADD CONSTRAINT FK_5114945CF675F31B FOREIGN KEY (author_id) REFERENCES `users` (id)');
+        $this->addSql('ALTER TABLE `adverts` ADD CONSTRAINT FK_8C88E777F675F31B FOREIGN KEY (author_id) REFERENCES `users` (id)');
         $this->addSql('ALTER TABLE `adverts` ADD CONSTRAINT FK_8C88E777C54C8C93 FOREIGN KEY (type_id) REFERENCES `advert_types` (id)');
         $this->addSql('ALTER TABLE `cities` ADD CONSTRAINT FK_D95DB16BF92F3E70 FOREIGN KEY (country_id) REFERENCES `countries` (id)');
-        $this->addSql('ALTER TABLE `cities` ADD CONSTRAINT FK_D95DB16BF675F31B FOREIGN KEY (author_id) REFERENCES `admins` (id)');
+        $this->addSql('ALTER TABLE `cities` ADD CONSTRAINT FK_D95DB16BF675F31B FOREIGN KEY (author_id) REFERENCES `users` (id)');
         $this->addSql('ALTER TABLE `comments` ADD CONSTRAINT FK_5F9E962AF675F31B FOREIGN KEY (author_id) REFERENCES `users` (id)');
-        $this->addSql('ALTER TABLE `companies` ADD CONSTRAINT FK_8244AA3AF675F31B FOREIGN KEY (author_id) REFERENCES `admins` (id)');
+        $this->addSql('ALTER TABLE `companies` ADD CONSTRAINT FK_8244AA3AF675F31B FOREIGN KEY (author_id) REFERENCES `users` (id)');
         $this->addSql('ALTER TABLE `companies` ADD CONSTRAINT FK_8244AA3A12469DE2 FOREIGN KEY (category_id) REFERENCES `company_categories` (id)');
-        $this->addSql('ALTER TABLE `company_categories` ADD CONSTRAINT FK_877DAFFEF675F31B FOREIGN KEY (author_id) REFERENCES `admins` (id)');
-        $this->addSql('ALTER TABLE `contacts` ADD CONSTRAINT FK_33401573585D36DC FOREIGN KEY (support_by_id) REFERENCES `admins` (id)');
-        $this->addSql('ALTER TABLE `countries` ADD CONSTRAINT FK_5D66EBADF675F31B FOREIGN KEY (author_id) REFERENCES `admins` (id)');
+        $this->addSql('ALTER TABLE `company_categories` ADD CONSTRAINT FK_877DAFFEF675F31B FOREIGN KEY (author_id) REFERENCES `users` (id)');
+        $this->addSql('ALTER TABLE `contacts` ADD CONSTRAINT FK_33401573585D36DC FOREIGN KEY (support_by_id) REFERENCES `users` (id)');
+        $this->addSql('ALTER TABLE `countries` ADD CONSTRAINT FK_5D66EBADF675F31B FOREIGN KEY (author_id) REFERENCES `users` (id)');
         $this->addSql('ALTER TABLE `documents` ADD CONSTRAINT FK_A2B07288A76ED395 FOREIGN KEY (user_id) REFERENCES `users` (id)');
         $this->addSql('ALTER TABLE `documents` ADD CONSTRAINT FK_A2B07288C54C8C93 FOREIGN KEY (type_id) REFERENCES `document_types` (id)');
-        $this->addSql('ALTER TABLE `documents` ADD CONSTRAINT FK_A2B07288B0644AEC FOREIGN KEY (validator_id) REFERENCES `admins` (id)');
-        $this->addSql('ALTER TABLE `event_categories` ADD CONSTRAINT FK_621D9F47F675F31B FOREIGN KEY (author_id) REFERENCES `admins` (id)');
+        $this->addSql('ALTER TABLE `documents` ADD CONSTRAINT FK_A2B07288B0644AEC FOREIGN KEY (validator_id) REFERENCES `users` (id)');
+        $this->addSql('ALTER TABLE `event_categories` ADD CONSTRAINT FK_621D9F47F675F31B FOREIGN KEY (author_id) REFERENCES `users` (id)');
         $this->addSql('ALTER TABLE `event_evaluations` ADD CONSTRAINT FK_90FBBA9DA76ED395 FOREIGN KEY (user_id) REFERENCES `users` (id)');
         $this->addSql('ALTER TABLE `event_evaluations` ADD CONSTRAINT FK_90FBBA9D71F7E88B FOREIGN KEY (event_id) REFERENCES `events` (id)');
         $this->addSql('ALTER TABLE `event_taxonomies` ADD CONSTRAINT FK_7BC559D69557E6F6 FOREIGN KEY (taxonomy_id) REFERENCES `taxonomies` (id)');
@@ -77,13 +76,13 @@ final class Version20220418130307 extends AbstractMigration
         $this->addSql('ALTER TABLE `events` ADD CONSTRAINT FK_5387574AF675F31B FOREIGN KEY (author_id) REFERENCES `users` (id)');
         $this->addSql('ALTER TABLE `events` ADD CONSTRAINT FK_5387574AF5B7AF75 FOREIGN KEY (address_id) REFERENCES `addresses` (id)');
         $this->addSql('ALTER TABLE `events` ADD CONSTRAINT FK_5387574A12469DE2 FOREIGN KEY (category_id) REFERENCES `event_categories` (id)');
-        $this->addSql('ALTER TABLE `faqs` ADD CONSTRAINT FK_8934BEE5F675F31B FOREIGN KEY (author_id) REFERENCES `admins` (id)');
+        $this->addSql('ALTER TABLE `faqs` ADD CONSTRAINT FK_8934BEE5F675F31B FOREIGN KEY (author_id) REFERENCES `users` (id)');
         $this->addSql('ALTER TABLE favorite_event_categories ADD CONSTRAINT FK_2EF1E642B9CF4E62 FOREIGN KEY (event_category_id) REFERENCES `event_categories` (id)');
         $this->addSql('ALTER TABLE favorite_event_categories ADD CONSTRAINT FK_2EF1E642A76ED395 FOREIGN KEY (user_id) REFERENCES `users` (id)');
         $this->addSql('ALTER TABLE `favorite_events` ADD CONSTRAINT FK_6F323BB0A76ED395 FOREIGN KEY (user_id) REFERENCES `users` (id)');
         $this->addSql('ALTER TABLE `favorite_events` ADD CONSTRAINT FK_6F323BB071F7E88B FOREIGN KEY (event_id) REFERENCES `events` (id)');
         $this->addSql('ALTER TABLE `messages` ADD CONSTRAINT FK_DB021E96F624B39D FOREIGN KEY (sender_id) REFERENCES `users` (id)');
-        $this->addSql('ALTER TABLE `notification_types` ADD CONSTRAINT FK_9F846CC9F675F31B FOREIGN KEY (author_id) REFERENCES `admins` (id)');
+        $this->addSql('ALTER TABLE `notification_types` ADD CONSTRAINT FK_9F846CC9F675F31B FOREIGN KEY (author_id) REFERENCES `users` (id)');
         $this->addSql('ALTER TABLE `notifications` ADD CONSTRAINT FK_6000B0D3C54C8C93 FOREIGN KEY (type_id) REFERENCES `notification_types` (id)');
         $this->addSql('ALTER TABLE `notifications` ADD CONSTRAINT FK_6000B0D3A76ED395 FOREIGN KEY (user_id) REFERENCES `users` (id)');
         $this->addSql('ALTER TABLE `signals` ADD CONSTRAINT FK_D6ADC50DA76ED395 FOREIGN KEY (user_id) REFERENCES `users` (id)');
@@ -95,18 +94,6 @@ final class Version20220418130307 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE `events` DROP FOREIGN KEY FK_5387574AF5B7AF75');
-        $this->addSql('ALTER TABLE `advert_categories` DROP FOREIGN KEY FK_33DF3752F675F31B');
-        $this->addSql('ALTER TABLE `advert_types` DROP FOREIGN KEY FK_5114945CF675F31B');
-        $this->addSql('ALTER TABLE `adverts` DROP FOREIGN KEY FK_8C88E777F675F31B');
-        $this->addSql('ALTER TABLE `cities` DROP FOREIGN KEY FK_D95DB16BF675F31B');
-        $this->addSql('ALTER TABLE `companies` DROP FOREIGN KEY FK_8244AA3AF675F31B');
-        $this->addSql('ALTER TABLE `company_categories` DROP FOREIGN KEY FK_877DAFFEF675F31B');
-        $this->addSql('ALTER TABLE `contacts` DROP FOREIGN KEY FK_33401573585D36DC');
-        $this->addSql('ALTER TABLE `countries` DROP FOREIGN KEY FK_5D66EBADF675F31B');
-        $this->addSql('ALTER TABLE `documents` DROP FOREIGN KEY FK_A2B07288B0644AEC');
-        $this->addSql('ALTER TABLE `event_categories` DROP FOREIGN KEY FK_621D9F47F675F31B');
-        $this->addSql('ALTER TABLE `faqs` DROP FOREIGN KEY FK_8934BEE5F675F31B');
-        $this->addSql('ALTER TABLE `notification_types` DROP FOREIGN KEY FK_9F846CC9F675F31B');
         $this->addSql('ALTER TABLE `adverts` DROP FOREIGN KEY FK_8C88E777C54C8C93');
         $this->addSql('ALTER TABLE `advert_taxonomies` DROP FOREIGN KEY FK_2A07F1C3D07ECCB6');
         $this->addSql('ALTER TABLE `addresses` DROP FOREIGN KEY FK_6FCA75168BAC62AF');
@@ -124,18 +111,29 @@ final class Version20220418130307 extends AbstractMigration
         $this->addSql('ALTER TABLE `advert_taxonomies` DROP FOREIGN KEY FK_2A07F1C39557E6F6');
         $this->addSql('ALTER TABLE `event_taxonomies` DROP FOREIGN KEY FK_7BC559D69557E6F6');
         $this->addSql('ALTER TABLE `addresses` DROP FOREIGN KEY FK_6FCA7516A76ED395');
+        $this->addSql('ALTER TABLE `advert_categories` DROP FOREIGN KEY FK_33DF3752F675F31B');
+        $this->addSql('ALTER TABLE `advert_types` DROP FOREIGN KEY FK_5114945CF675F31B');
+        $this->addSql('ALTER TABLE `adverts` DROP FOREIGN KEY FK_8C88E777F675F31B');
+        $this->addSql('ALTER TABLE `cities` DROP FOREIGN KEY FK_D95DB16BF675F31B');
         $this->addSql('ALTER TABLE `comments` DROP FOREIGN KEY FK_5F9E962AF675F31B');
+        $this->addSql('ALTER TABLE `companies` DROP FOREIGN KEY FK_8244AA3AF675F31B');
+        $this->addSql('ALTER TABLE `company_categories` DROP FOREIGN KEY FK_877DAFFEF675F31B');
+        $this->addSql('ALTER TABLE `contacts` DROP FOREIGN KEY FK_33401573585D36DC');
+        $this->addSql('ALTER TABLE `countries` DROP FOREIGN KEY FK_5D66EBADF675F31B');
         $this->addSql('ALTER TABLE `documents` DROP FOREIGN KEY FK_A2B07288A76ED395');
+        $this->addSql('ALTER TABLE `documents` DROP FOREIGN KEY FK_A2B07288B0644AEC');
+        $this->addSql('ALTER TABLE `event_categories` DROP FOREIGN KEY FK_621D9F47F675F31B');
         $this->addSql('ALTER TABLE `event_evaluations` DROP FOREIGN KEY FK_90FBBA9DA76ED395');
         $this->addSql('ALTER TABLE `events` DROP FOREIGN KEY FK_5387574AF675F31B');
+        $this->addSql('ALTER TABLE `faqs` DROP FOREIGN KEY FK_8934BEE5F675F31B');
         $this->addSql('ALTER TABLE favorite_event_categories DROP FOREIGN KEY FK_2EF1E642A76ED395');
         $this->addSql('ALTER TABLE `favorite_events` DROP FOREIGN KEY FK_6F323BB0A76ED395');
         $this->addSql('ALTER TABLE `messages` DROP FOREIGN KEY FK_DB021E96F624B39D');
+        $this->addSql('ALTER TABLE `notification_types` DROP FOREIGN KEY FK_9F846CC9F675F31B');
         $this->addSql('ALTER TABLE `notifications` DROP FOREIGN KEY FK_6000B0D3A76ED395');
         $this->addSql('ALTER TABLE `signals` DROP FOREIGN KEY FK_D6ADC50DA76ED395');
         $this->addSql('ALTER TABLE `subscribers` DROP FOREIGN KEY FK_2FCD16ACA76ED395');
         $this->addSql('DROP TABLE `addresses`');
-        $this->addSql('DROP TABLE `admins`');
         $this->addSql('DROP TABLE `advert_categories`');
         $this->addSql('DROP TABLE `advert_taxonomies`');
         $this->addSql('DROP TABLE `advert_types`');
