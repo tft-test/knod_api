@@ -4,6 +4,7 @@ namespace App\Tests\Units;
 
 use App\Entity\Admin;
 use App\Entity\AdvertCategory;
+use App\Entity\Event;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -35,7 +36,7 @@ class AdvertCategoryTest extends KernelTestCase
     public function testIsFalse(AdvertCategory $advertCategory): void
     {
         $this->assertNotEquals('type', $advertCategory->getCategory());
-        $this->assertNotInstanceOf(User::class, $advertCategory->getAuthor());
+        $this->assertNotInstanceOf(Event::class, $advertCategory->getAuthor());
     }
 
     /**

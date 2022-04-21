@@ -2,6 +2,7 @@
 
 namespace App\Tests\Units;
 
+use App\Entity\Address;
 use App\Entity\Admin;
 use App\Entity\Company;
 use App\Entity\Event;
@@ -39,7 +40,7 @@ class CompanyCategoryTest extends KernelTestCase
     {
         $this->assertNotEquals('type', $companyCategory->getCategory());
         $this->assertNotInstanceOf(User::class, $companyCategory->getCompanies()->first());
-        $this->assertNotInstanceOf(User::class, $companyCategory->getAuthor());
+        $this->assertNotInstanceOf(Address::class, $companyCategory->getAuthor());
     }
 
     /**

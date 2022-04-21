@@ -38,7 +38,7 @@ class EventCategoryTest extends KernelTestCase
     {
         $this->assertNotEquals('type', $eventCategory->getCategory());
         $this->assertNotInstanceOf(User::class, $eventCategory->getEvents()->first());
-        $this->assertNotInstanceOf(User::class, $eventCategory->getAuthor());
+        $this->assertNotInstanceOf(Event::class, $eventCategory->getAuthor());
     }
 
     /**

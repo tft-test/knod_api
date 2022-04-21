@@ -6,6 +6,7 @@ use App\Entity\Admin;
 use App\Entity\Contact;
 use App\Entity\Company;
 use App\Entity\ContactType;
+use App\Entity\Event;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -39,7 +40,7 @@ class ContactTest extends KernelTestCase
      */
     public function testIsFalse(Contact $contact): void
     {
-        $this->assertNotInstanceOf(User::class, $contact->getSupportBy());
+        $this->assertNotInstanceOf(Event::class, $contact->getSupportBy());
         $this->assertNotEquals('subjecto', $contact->getSubject());
         $this->assertNotEquals('email@domain.extension', $contact->getEmail());
         $this->assertNotEquals('mesagem', $contact->getMessage());

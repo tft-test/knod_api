@@ -41,7 +41,7 @@ class CompanyTest extends KernelTestCase
     {
         $this->assertNotInstanceOf(Company::class, $company->getAddresses()->first());
         $this->assertNotInstanceOf(Company::class, $company->getCategory());
-        $this->assertNotInstanceOf(User::class, $company->getAuthor());
+        $this->assertNotInstanceOf(Address::class, $company->getAuthor());
         $this->assertNotEquals('nome', $company->getName());
         $this->assertNotEquals('0000000000000', $company->getSiret());
     }

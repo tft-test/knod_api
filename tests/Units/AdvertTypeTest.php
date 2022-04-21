@@ -40,7 +40,7 @@ class AdvertTypeTest extends KernelTestCase
     public function testIsFalse(AdvertType $advertType): void
     {
         $this->assertNotInstanceOf(User::class, $advertType->getAdverts()->first());
-        $this->assertNotInstanceOf(User::class, $advertType->getAuthor());
+        $this->assertNotInstanceOf(Event::class, $advertType->getAuthor());
         $this->assertNotEquals('false', $advertType->getType());
     }
 
