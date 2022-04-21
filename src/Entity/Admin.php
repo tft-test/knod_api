@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ORM\Entity(repositoryClass: AdminRepository::class)]
 #[ORM\Table(name: '`admins`')]
-class Admin
+class Admin extends User
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
