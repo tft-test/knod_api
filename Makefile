@@ -38,6 +38,10 @@ cleanAll:
 	rm -rf vendor
 	rm -rf composer.lock
 
+test-unit:
+	@echo "Running Tests $@"
+	newman run postman/user.postman_collection.json -e postman/postman_environment.json
+
 clean:
 	@echo "Cleaning Symfony With Docker-compose $@"
 	docker-compose down

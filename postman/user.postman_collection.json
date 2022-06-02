@@ -87,47 +87,6 @@
 			"response": []
 		},
 		{
-			"name": "Should sign user in",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.environment.set('token', pm.response.json().token);",
-							"",
-							"pm.test('Status test', function(){",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"username\":\"{{username}}\",\n    \"password\": \"admin\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}api/login_check",
-					"host": [
-						"{{url}}api"
-					],
-					"path": [
-						"login_check"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Should sign user with bad email will fail",
 			"event": [
 				{
@@ -191,6 +150,47 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"username\":\"{{username}}\",\n    \"password\": \"admin1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}api/login_check",
+					"host": [
+						"{{url}}api"
+					],
+					"path": [
+						"login_check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Should sign user in",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set('token', pm.response.json().token);",
+							"",
+							"pm.test('Status test', function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"{{username}}\",\n    \"password\": \"admin\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -282,9 +282,9 @@
 						"exec": [
 							"pm.test('Status test', function(){",
 							"    pm.response.to.have.status(204);",
-							"    pm.environment.unset('id');",
-							"    pm.environment.unset('username');",
-							"    pm.environment.unset('token');",
+							"    // pm.environment.unset('id');",
+							"    // pm.environment.unset('username');",
+							"    // pm.environment.unset('token');",
 							"});",
 							""
 						],
