@@ -17,3 +17,7 @@
 
 ###> IDE ###
 ###< IDE ###
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/private.pem.pem
+/config/jwt/public.pem.pem
+###< lexik/jwt-authentication-bundle ###

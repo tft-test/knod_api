@@ -1,4 +1,4 @@
-PHONY: install run runWithDocker
+PHONY: install run runWithDocker fixtures
 
 install:
 	@echo "Installing package with composer $@"
@@ -9,6 +9,10 @@ install:
 run:
 	@echo "Running Symfony - API $@"
     symfony server:start
+
+fixtures:
+	@echo "Running Fixtures load ... $@"
+	symfony console doctrine:fixtures:load --no-interaction
 
 stop_run:
 	@echo "Running Symfony - API $@"
@@ -33,6 +37,10 @@ cleanAll:
 	rm -rf node_modules
 	rm -rf vendor
 	rm -rf composer.lock
+
+test-unit:
+	@echo "Running Tests $@"
+	newman run postman/user.postman_collection.json -e postman/postman_environment.json
 
 clean:
 	@echo "Cleaning Symfony With Docker-compose $@"
