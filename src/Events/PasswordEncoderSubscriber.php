@@ -17,7 +17,7 @@ class PasswordEncoderSubscriber implements EventSubscriberInterface
     {
     }
 
-    #[ArrayShape([KernelEvents::VIEW => "array"])] public static function getSubscribedEvents(): array
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::VIEW => ['encodePassword', EventPriorities::PRE_WRITE],
