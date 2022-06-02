@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220602105631 extends AbstractMigration
+final class Version20220602201133 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -42,7 +42,7 @@ final class Version20220602105631 extends AbstractMigration
         $this->addSql('CREATE TABLE `favorite_events` (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, event_id INT NOT NULL, INDEX IDX_6F323BB0A76ED395 (user_id), INDEX IDX_6F323BB071F7E88B (event_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE `images` (id INT AUTO_INCREMENT NOT NULL, filename VARCHAR(255) NOT NULL, mime VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE `messages` (id INT AUTO_INCREMENT NOT NULL, sender_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, url VARCHAR(255) NOT NULL, message LONGTEXT NOT NULL, INDEX IDX_DB021E96F624B39D (sender_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE `notification_types` (id INT AUTO_INCREMENT NOT NULL, author_id INT DEFAULT NULL, INDEX IDX_9F846CC9F675F31B (author_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE `notification_types` (id INT AUTO_INCREMENT NOT NULL, author_id INT DEFAULT NULL, type VARCHAR(255) NOT NULL, INDEX IDX_9F846CC9F675F31B (author_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE `notifications` (id INT AUTO_INCREMENT NOT NULL, type_id INT DEFAULT NULL, user_id INT NOT NULL, INDEX IDX_6000B0D3C54C8C93 (type_id), INDEX IDX_6000B0D3A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE `signals` (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, status INT NOT NULL, reason VARCHAR(255) NOT NULL, INDEX IDX_D6ADC50DA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE `subscribers` (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, event_id INT NOT NULL, status INT NOT NULL, INDEX IDX_2FCD16ACA76ED395 (user_id), INDEX IDX_2FCD16AC71F7E88B (event_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');

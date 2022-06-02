@@ -26,6 +26,9 @@ class NotificationType
     #[ORM\Column(type: 'integer')]
     private ?int $id;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
+    private string $type;
+
     #[ORM\OneToMany(mappedBy: 'type', targetEntity: Notification::class)]
     private $notifications;
 
@@ -83,6 +86,18 @@ class NotificationType
     public function setAuthor(?Admin $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

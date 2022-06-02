@@ -4,6 +4,7 @@ namespace App\Events;
 
 use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\User;
+use JetBrains\PhpStorm\ArrayShape;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -16,7 +17,7 @@ class PasswordEncoderSubscriber implements EventSubscriberInterface
     {
     }
 
-    public static function getSubscribedEvents()
+    #[ArrayShape([KernelEvents::VIEW => "array"])] public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::VIEW => ['encodePassword', EventPriorities::PRE_WRITE],
