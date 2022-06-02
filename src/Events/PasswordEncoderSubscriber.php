@@ -13,7 +13,8 @@ class PasswordEncoderSubscriber implements EventSubscriberInterface
 {
 
     public function __construct(private UserPasswordHasherInterface $passwordHasher)
-    {}
+    {
+    }
 
     public static function getSubscribedEvents()
     {
