@@ -1,4 +1,4 @@
-PHONY: install run runWithDocker
+PHONY: install run runWithDocker fixtures
 
 install:
 	@echo "Installing package with composer $@"
@@ -9,6 +9,10 @@ install:
 run:
 	@echo "Running Symfony - API $@"
     symfony server:start
+
+fixtures:
+	@echo "Running Fixtures load ... $@"
+	symfony console doctrine:fixtures:load --no-interaction
 
 stop_run:
 	@echo "Running Symfony - API $@"
