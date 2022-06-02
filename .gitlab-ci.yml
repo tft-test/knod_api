@@ -60,5 +60,5 @@ phpunit:
       - vendor/
   script:
     - php vendor/bin/phpunit
-    - newman run ./postman/user.postman_collection.json -e ./postman/postman_environment.json
+#    - newman run ./postman/user.postman_collection.json -e ./postman/postman_environment.json
   allow_failure: false
