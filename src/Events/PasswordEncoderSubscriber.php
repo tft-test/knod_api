@@ -12,7 +12,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class PasswordEncoderSubscriber implements EventSubscriberInterface
 {
 
-    public function __construct(private UserPasswordHasherInterface $passwordHasher) {}
+    public function __construct(private UserPasswordHasherInterface $passwordHasher)
+    {}
 
     public static function getSubscribedEvents()
     {
