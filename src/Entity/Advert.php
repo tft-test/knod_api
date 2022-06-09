@@ -10,6 +10,8 @@ use App\Repository\AdvertRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Valid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @access public
@@ -27,6 +29,7 @@ class Advert
     private ?int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
     private ?string $title = '';
 
     #[ORM\ManyToOne(targetEntity: Admin::class, inversedBy: 'adverts')]
