@@ -29,24 +29,20 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource()]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id]
+    #[ORM\Id]²
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups(["get"])]
     private ?int $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    #[Groups(["get", "put"])]
     #[Assert\NotBlank]
     #[Assert\Email(groups: ["registration"])]
     private ?string $email = '';
 
     #[ORM\Column(type: 'json')]
-    #[Groups("get")]
     private ?array $roles = [];
 
     #[ORM\Column(type: 'string')]
-    #[Groups(["put"])]
     private ?string $password = '';
 
     #[ORM\Column(type: 'string', length: 255)]
