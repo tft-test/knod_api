@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ORM\Entity(repositoryClass: TaxonomyRepository::class)]
 #[ORM\Table(name: '`taxonomies`')]
-#[ApiResource]
+#[ApiResource()]
 class Taxonomy
 {
     #[ORM\Id]
