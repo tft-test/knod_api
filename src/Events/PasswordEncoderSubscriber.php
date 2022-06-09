@@ -6,6 +6,8 @@ use ApiPlatform\Core\EventListener\EventPriorities;
 use App\Entity\User;
 use JetBrains\PhpStorm\ArrayShape;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -21,6 +23,8 @@ class PasswordEncoderSubscriber implements EventSubscriberInterface
     {
         return [
             KernelEvents::VIEW => ['encodePassword', EventPriorities::PRE_WRITE],
+//            KernelEvents::RESPONSE => ['validateResponse', EventPriorities::PRE_RESPOND],
+            //KernelEvents::REQUEST => ['validate', EventPriorities::PRE_RESPOND],
         ];
     }
 
@@ -34,4 +38,20 @@ class PasswordEncoderSubscriber implements EventSubscriberInterface
             $user->setPassword($hash);
         }
     }
+
+    public function validateResponse(ResponseEvent $event): void
+    {
+        //dd($event->getResponse());
+        // username and password
+        $request = json_decode($event->getRequest()->getContent(), false);
+        //dd($request);
+    }
+
+//    public function validate(RequestEvent $event): void
+//    {
+//        dd($event->getResponse());
+//        // username and password
+//        $request = json_decode($event->getRequest()->getContent(), false);
+//        dd($request);
+//    }
 }

@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints\Valid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @access public
@@ -25,21 +26,27 @@ use Symfony\Component\Validator\Constraints\Valid;
 #[ORM\InheritanceType("SINGLE_TABLE")]
 #[ORM\DiscriminatorColumn(name: "discr", type: "string")]
 #[ORM\DiscriminatorMap(["users"=>"User", "admins"=>"Admin"])]
-#[ApiResource]
+#[ApiResource()]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(["get"])]
     private ?int $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Groups(["get", "put"])]
+    #[Assert\NotBlank]
+    #[Assert\Email(groups: ["registration"])]
     private ?string $email = '';
 
     #[ORM\Column(type: 'json')]
+    #[Groups("get")]
     private ?array $roles = [];
 
     #[ORM\Column(type: 'string')]
+    #[Groups(["put"])]
     private ?string $password = '';
 
     #[ORM\Column(type: 'string', length: 255)]

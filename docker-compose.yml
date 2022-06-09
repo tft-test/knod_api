@@ -11,7 +11,7 @@ services:
       - db-data:/var/lib/mysql
   mailer:
     image: schickling/mailcatcher
-    ports: [1025, 1080]
+    ports: [ "1025", "1080" ]
 
 volumes:
   ###> doctrine/doctrine-bundle ###
