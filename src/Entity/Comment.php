@@ -8,6 +8,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @access public
@@ -25,6 +26,8 @@ class Comment
     private ?int $id;
 
     #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 10, max: 1000)]
     private ?string $comment = '';
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'comments')]
