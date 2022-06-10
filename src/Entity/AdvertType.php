@@ -10,6 +10,7 @@ use App\Repository\AdvertTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @access public
@@ -27,6 +28,7 @@ class AdvertType
     private ?int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(message: 'The name is required.')]
     private ?string $type = '';
 
     #[ORM\OneToMany(mappedBy: 'type', targetEntity: Advert::class, orphanRemoval: true)]

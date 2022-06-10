@@ -44,7 +44,7 @@ class EventFixtures extends Fixture
         $admin = (new Admin())
             ->setLastname($faker->lastName())
             ->setFirstname($faker->firstName())
-            ->setPhoneNumber($faker->phoneNumber())
+            ->setPhoneNumber(substr($faker->phoneNumber(), 0, 14))
             ->setEmail($faker->email())
             ->setDescription($faker->sentence(6))
             ->setRoles(['ROLE_ADMIN']);

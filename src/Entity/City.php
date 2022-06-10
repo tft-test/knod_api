@@ -7,6 +7,7 @@ use App\Repository\CityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * City
@@ -22,9 +23,17 @@ class City
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotNull(message: 'This value should not be null.')]
     private $name;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotNull(message: 'This value should not be null.')]
+    #[Assert\Length(
+        min: 5,
+        max: 5,
+        minMessage: 'This value should be at least {{ limit }} characters long.',
+        maxMessage: 'This value should be at most {{ limit }} characters long.'
+    )]
     private $zipcode;
 
     #[ORM\OneToMany(mappedBy: 'city', targetEntity: Address::class, orphanRemoval: true)]

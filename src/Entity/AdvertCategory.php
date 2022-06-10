@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AdvertCategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Advert's category
@@ -20,6 +21,7 @@ class AdvertCategory
     private $id;
 
     #[ORM\Column(type: 'string', length: 150)]
+    #[Assert\NotBlank(message: 'Field is required')]
     private $category;
 
     #[ORM\ManyToOne(targetEntity: Admin::class, inversedBy: 'advertCategories')]

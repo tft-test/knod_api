@@ -27,6 +27,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\DiscriminatorColumn(name: "discr", type: "string")]
 #[ORM\DiscriminatorMap(["users"=>"User", "admins"=>"Admin"])]
 #[ApiResource()]
+#[UniqueEntity('email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -36,16 +37,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Assert\NotBlank]
-    #[Assert\Email(groups: ["registration"])]
+    #[Assert\Email(message: "The email is not valid")]
     private ?string $email = '';
 
     #[ORM\Column(type: 'json')]
     private ?array $roles = [];
 
     #[ORM\Column(type: 'string')]
+    #[Assert\Length(min: 8, max: 255)]
+    #[Assert\NotBlank(message: "The password cannot be empty")]
+    #[Assert\Regex(
+        pattern: "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
+        message: "The password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character"
+    )]
+    #[Assert\NotEqualTo(
+        propertyPath: "providerId",
+        message: "The password cannot be the same as the Provider ID"
+    )]
     private ?string $password = '';
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
     private ?string $firstname = '';
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -54,8 +66,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $username = '';
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 14)]
     private ?string $phoneNumber = '';
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private bool $isVerified = false;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $providerId = '';
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $providerName = '';
 
     #[ORM\Column(type: 'text')]
     private ?string $description = '';
@@ -628,6 +649,60 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             }
         }
 
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    /**
+     * @param bool $isVerified
+     * @return User
+     */
+    public function setIsVerified(bool $isVerified): User
+    {
+        $this->isVerified = $isVerified;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getProviderId(): ?string
+    {
+        return $this->providerId;
+    }
+
+    /**
+     * @param string|null $providerId
+     * @return User
+     */
+    public function setProviderId(?string $providerId): User
+    {
+        $this->providerId = $providerId;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getProviderName(): ?string
+    {
+        return $this->providerName;
+    }
+
+    /**
+     * @param string|null $providerName
+     * @return User
+     */
+    public function setProviderName(?string $providerName): User
+    {
+        $this->providerName = $providerName;
         return $this;
     }
 }
